@@ -5,11 +5,14 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 
 ## Quick Start
 
-### Create a new post
+### Create a new post  hello world
 
 ``` bash
-$ hexo new "My New Post"  hello world
+$ hexo new "My New Post"  hello wrld
 ```
+
+
+safkalskfjlsafnlsajfs asfksadfklj
 
 More info: [Writing](https://hexo.io/docs/writing.html)
 
