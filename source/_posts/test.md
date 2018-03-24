@@ -64,9 +64,9 @@ org.springframework.context.ApplicationContextException: Unable to start embedde
 ```
 
 但是在本地调试代码的时候需要将这段代码注释掉，否则启动项目的时候出现了如下错误：
-![IMAGE](resources/145C37620C25457DE85F8194753C5358.jpg =1000x440)
+![IMAGE](test/145C37620C25457DE85F8194753C5358.jpg)
 同时提示：Error creating bean with name 'xxxxxx' defined in file 的错误。
 
 ### 4. 接口访问请求出错返回：Unexpected ''，后台 debug 没有捕捉到请求
 (1) 查看端口号，lsof -i:端口号，看看是否因为某些原因导致端口号被占用，如果占用，关闭这些端口号占用的进程，再启动项目即可。
-![IMAGE](resources/F05FE48CCB08B4C0418DFAF60DF39CB6.jpg =1000x300)
+![IMAGE](test/F05FE48CCB08B4C0418DFAF60DF39CB6.jpg)
