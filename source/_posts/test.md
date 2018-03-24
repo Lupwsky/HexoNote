@@ -1,3 +1,8 @@
+---
+title: SpringBoot 启动错误问题
+type: "tags"
+---
+
 ## SpringBoot 启动错误问题
 ### 1. Your ApplicationContext is unlikely to start due to a @ComponentScan of the default package
 首先 Application.java 文件不能直接放在main/java文件夹下，需要放入包中 (例如 main/java/com/lupw 下)。其次，会默认扫描所有包，需要加上注解 @ComponentScan("com.lupw") 对扫描的包进行限制。
