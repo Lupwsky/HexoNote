@@ -1,7 +1,8 @@
 ---
-title: SpringBoot启动错误
+title: Java-SpringBoot启动错误
 date: 2018/03/23 20:46:25
-categories:　Java
+categories:
+- Java
 ---
 
 
