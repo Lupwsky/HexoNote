@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
-description:
-keywords:
-author: John Doe
+title: 技术小站
+subtitle: 学习笔记
+description: Java, Android, MySQL, Kotlin, Spring
+keywords: 技术小站
+author: 牧羊の人～
 language:
 timezone:
 
