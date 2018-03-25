@@ -118,17 +118,3 @@ DATETIME
 INT、TIMESTAMP 和 DATETIME 性能分析相关资料: `http://www.piaoyi.org/database/MYSQL-INT-TIMESTAMP-DATETIME.html`
 
 <div class="note default"><p> 单个查询如果希望执行速度快且并发性好，一次查询关联的表最好不要超过 12 张表，所以设计 Schema 的时候，表之间的关系要考虑清楚。 </p></div>
-
-{% tabs 选项卡 %}
-<!-- tab Java -->
-呵呵哈哈哈哈哈哈哈哈呵呵哈哈哈哈哈哈哈哈呵呵哈哈哈哈哈哈哈哈呵呵哈哈哈哈哈哈哈哈呵呵哈哈哈哈哈哈哈哈呵呵哈哈哈哈哈哈哈哈……
-<!-- endtab -->
-
-<!-- tab XML -->
-你好
-<!-- endtab -->
-
-<!-- tab CSS -->
-**这是选项卡 3** 哇，你找到我了！φ(≧ω≦*)♪～
-<!-- endtab -->
-{% endtabs %}

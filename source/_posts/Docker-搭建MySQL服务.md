@@ -4,15 +4,15 @@ date: 2018-03-25 08:48:25
 categories: Docker
 ---
 
-使用 Docker 搭建 MySQL 服务
+本文主要介绍如何使用 Docker 搭建 MySQL 服务。
 
 # 搭建步骤
 
 ## 了解 MySQL 在容器中支持的 TAG
 
-首先我们需要了解官方 MySQL 支持的 TAG 有哪些， 官方的文档地址为: `https://hub.docker.com/_/mysql/`
-![IMAGE](Docker-搭建MySQL服务/20180325090136.png)
+首先我们需要了解官方 MySQL 支持的 TAG 有哪些， 官方的文档地址为: `https://hub.docker.com/_/mysql/`，支持的 TAG 如下如所示。
 <!-- more -->
+![IMAGE](Docker-搭建MySQL服务/20180325090136.png)
 
 ## 拉取 MySQL 镜像
 
