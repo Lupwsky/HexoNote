@@ -148,7 +148,7 @@ org.springframework:spring-jcl:5.0.4.RELEASE.jar
 public class Application {
     public static void main(String[] args) {
         ApplicationContext context
-                = new ClassPathXmlApplicationContext("classpath:beans/beans.xml");
+                = new ClassPathXmlApplicationContext("classpath:beans/ico_test_bean.xml");
         MovieTask movieTask = context.getBean("movieTask", MovieTask.class);
         movieTask.doTask();
     }
