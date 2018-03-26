@@ -115,6 +115,4 @@ DATETIME
 
 有人喜欢将日期时间存储为整数值，但是我个人喜欢使用 DATETIME，一是存储整数值的收益不大，DATETIME 底层也是使用整型数值存储，效率并没有提高多少; 二是 DATETIME 是一种可排序的，直接显示出标准的时间格式，易于查看，利于维护和排查问题，整型数字需要进行转换；最后一点，DATETIME 可以使用 MySQL 提供的一系列时间函数;
 
-INT、TIMESTAMP 和 DATETIME 性能分析相关资料: `http://www.piaoyi.org/database/MYSQL-INT-TIMESTAMP-DATETIME.html`
-
 <div class="note default"><p> 单个查询如果希望执行速度快且并发性好，一次查询关联的表最好不要超过 12 张表，所以设计 Schema 的时候，表之间的关系要考虑清楚。 </p></div>
