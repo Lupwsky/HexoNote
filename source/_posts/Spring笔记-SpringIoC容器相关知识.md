@@ -165,6 +165,114 @@ Spring 通过简单的配置文件可以完成 bean 的实例化和依赖注入�
 
 ## 资源访问
 
+### Resource 接口和 Resource 接口的实现类
+
 Spring 通过读取配置文件来获取 Bena 初始化配置和依赖关系，需要进行资源的访问才能获取这些信息，JDK 所提供的资源访问类 java.net.URL、File类等并不能很好的访问类路径和 WEB 容器上下文的资源文件，因此 Spring 设计了一个 Resource 接口，并提供了相关的实现类，以便于在各种场景下方便的访问资源问件，具体的实现类如下图所示:
 
 ![IMAGE](Spring笔记-SpringIoC容器相关知识/20180327233518.png)
+
+先看看 Resource 接口的定义的方法:
+
+``` java
+public interface Resource extends InputStreamSource {
+    // 资源是否存在
+    boolean exists();
+
+    //　资源是否可读
+    default boolean isReadable() {
+        return true;
+    }
+
+    // 资源是否已打开
+    default boolean isOpen() {
+        return false;
+    }
+
+    // 打开的资源是否是一个文件
+    default boolean isFile() {
+        return false;
+    }
+
+    // 如果资源文件可以被表示成一个 URL，则返回 URL
+    URL getURL() throws IOException;
+
+    URI getURI() throws IOException;
+
+    // 如果资源文件是一个文件，则返回 File 对象
+    File getFile() throws IOException;
+
+    default ReadableByteChannel readableChannel() throws IOException {
+        return Channels.newChannel(this.getInputStream());
+    }
+
+    long contentLength() throws IOException;
+
+    long lastModified() throws IOException;
+
+    // 在资源文件的相对路径上创建文件
+    Resource createRelative(String var1) throws IOException;
+
+    @Nullable
+    String getFilename();
+
+    String getDescription();
+}
+```
+
+Resource 的各个实现类的主要功能见下表:
+
+ 类名 | 主要功能
+ :--- | :---
+ ByteArrayResource      | 用于加载和处理二进制数组表示的资源
+ ClassPathResource      | 用于加载和处理类路径下的资源，资源以类路径的方式表示
+ DescriptiveResource    | --
+ FileSystemResource     | 用于加载和处理文件系统下的资源，资源以文件系统路径表示
+ IputStreamResource     | 处理 InputStream 资源
+ PortletContextResource | --
+ ServletContextResource | 负责加载 WEB 应用根目录下的资源，允许以流和 URL 的方式加载资源，在 war 包解包的情况下允许以 File 的形式加载资源，还允许直接从 jar 包中访问资源
+ UrlResource            | 封装了 java.net.URL，可以访问任意可以使用 URL 表示的资源，如文件系统的资源，HTTP 资源，FTP 资源等
+
+我们常用的使用主要是 ClassPathResource、FileSystemResource 和 ServletContextResource 三个类，使用方法如下:
+
+``` java
+// FileSystemResource
+Resource res = new FileSystemResource("/home/lupw/log/log.txt");
+ImputStream is = res.getImputStream();
+
+// ClassPathResource
+Resource res = new ClassPathResource("classpath:mapper/CommomMapper.xml");
+ImputStream is = res.getImputStream();
+
+// ServletContextResource，可以在 jsp 中使用
+Resource res = new ClassPathResource(application, "WEB-INF/classes/conf/log.txt");
+ImputStream is = res.getImputStream();
+```
+
+### 资源地址表达式和资源加载器
+
+Spring 加载不同类型的资源需要用到不同的 Resource 实现类，Spring 针对这种情况做了优化，通过资源地址的不同表达式就可以加载对应的资源，Spring 主要通过资源地址表达式的前缀来识别，支持的地址前缀如下表。
+
+前缀 | 示例 | 对应资源的类型
+---- | ---------- | ---------
+classpath | classpath:CommonMapper.xml | 从类路径中加载资源，资源文件可以在文件系统中，也可以在 jar 或者 zip 包中
+file | file:/home/lupw/log/log.txt | UrlResource 通过文件系统的路径加载资源，可以是相对或者绝对路径
+http:// | http://www.lupw.com/beans.xml | UrlResource 从 WEB 服务器中加载资源
+ftp:// | ftp://www.lupw.com/beans.xml | UrlResource 从 FTP 服务器中加载资源
+没有前缀 | beans.xml | 根据 ApplicationContext 具体的实现类 (如ClassPathXmlApplicationContext) 采用对应类型的 Resource
+
+上面的资源地址需要通过资源加载器才能加载到资源，Spring 定义了加载器的接口 ResourceLoader，它只有一个接口 getResource(String location)，并且只支持资源地址前缀的表达式，不支持 Ant 风格的资源地址表达式。ResourcePatternResolver 扩展了 ResourceLoader 接口，可以支持 Ant 风格的资源地址表达式，PathMatchingResourcePatternResolver 则是一个标准的实现类，继承关系如下图所示。
+
+![IMAGE](Spring笔记-SpringIoC容器相关知识/20180328011514.png)
+
+PathMatchingResourcePatternResolver 类的使用方法如下。
+
+``` java
+PathMatchingResourcePatternResolver resolver =new PathMatchingResourcePatternResolver();
+// 加载所有类目录 (项目被拆分成多个子模块时) 下的 mapper 目录下所有 xml 文件资源
+Resource resources[] = resolver.getResources("classpath*:mapper/*.xml");
+for(Resource res : resources) {
+    ImputStrem is = res.getInputStream();
+}
+```
+
+### Ant 风格资源地址
