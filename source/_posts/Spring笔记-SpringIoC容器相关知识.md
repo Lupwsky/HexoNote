@@ -276,3 +276,11 @@ for(Resource res : resources) {
 ```
 
 ### Ant 风格资源地址
+
+Ant 风格的地址支持三种匹配符
+
+1. ? 匹配文件中的一个字符, classpath:com/mapper/t*est.xml
+2. \* 匹配文件中的任意字符, classpath:com/mapper/*.xml
+3. \*\* 匹配多层路径, classpath:com/**/test.xml 匹配 com 目录下和其子孙目录下的所有 test.xml 文件
+
+<div class="note default"><p> 有一个比较特殊的写法 classpath\*，在多模块应用中常用，例如某个项目中有三个模块，每个模块中类路径下都有一个配置文件，分别为 moudle1.xml，module2.xml，module3.xml，如果写成 classpath:module\*.xml 只会匹配到第一个配置文件，写成 classpath\*:module\*.xml 才能匹配到三个文件。</p></div>
