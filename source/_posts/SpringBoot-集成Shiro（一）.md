@@ -101,7 +101,6 @@ public class ShiroConfig  {
         // 该 URL 不需要认证 (登录) 即可访问
         map.put("/login/message/system", "anon");
         map.put("/register/message/system/account", "anon");
-        map.put("/tdx/template", "anon");
         map.put("/app/login", "anon");
 
         // 静态资源, img, css, js
