@@ -35,7 +35,7 @@ sudo docker images
 ### 创建并启动 MySQL 容器
 
 ``` shell
-sudo docker run --name mysql_msg -e MYSQL_ROOT_PASSWORD=123456 -p 330８:3306 -d mysql:5.7
+sudo docker run --name mysql_msg -e MYSQL_ROOT_PASSWORD=123456 -p 3308:3306 -d mysql:5.7
 ```
 
 参数说明:
