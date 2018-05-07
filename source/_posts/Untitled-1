@@ -23,3 +23,7 @@ Spring 通过简单的配置文件可以完成 bean 的实例化和依赖注入�
 Spring 通过读取配置文件来获取 Bena De 依赖关系，需要使用进行资源的访问，JDK 所提供的资源访问类 java.net.URL、File类等并不能很好的访问类路径和 WEB 容器上下文的资源文件，因此 Spring 设计了一个 Resource 接口，并提供了相关的实现类，以便于在各种场景下方便的访问资源问件，具体的实现类如下图所示:
 
 ![IMAGE](Spring笔记-SpringIoC容器相关知识/20180327233518.png)
+
+
+启动 Nginx
+/user/sbin/nginx -c /etc/nginx/nginx.config
