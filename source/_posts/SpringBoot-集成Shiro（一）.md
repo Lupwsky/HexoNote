@@ -4,11 +4,11 @@ date: 2018-03-29 14:51:13
 categories:  SpringBoot
 ---
 
-Apache Shiro 是 Java 的一个安全框架，目前，使用 Apache Shiro 的人越来越多，因为它相对 Spring Security 比较简单，虽然功能没有后者强大。Shiro 可以非常容易的开发出足够好的应用，其不仅可以用在 JavaSE 环境，也可以用在 JavaEE 环境，Shiro 可以帮助我们完成：认证、授权、加密、会话管理、与Web集成、缓存等。这篇学习笔记主要简单的说明如何在 SpringBoot 中如何集成 Shiro。
+Apache Shiro 是 Java 的一个安全框架, 目前, 使用 Apache Shiro 的人越来越多, 因为它相对 Spring Security 比较简单, 虽然功能没有后者强大。Shiro 可以非常容易的开发出足够好的应用, 其不仅可以用在 JavaSE 环境, 也可以用在 JavaEE 环境, Shiro 可以帮助我们完成：认证、授权、加密、会话管理、与Web集成、缓存等。这篇学习笔记主要简单的说明如何在 SpringBoot 中如何集成 Shiro。
 
 # 添加依赖
 
-在 pom.xml 文件中添加 shiro-spring 依赖，如下：
+在 pom.xml 文件中添加 shiro-spring 依赖, 如下：
 <!-- more -->
 
 ``` xml
@@ -22,7 +22,7 @@ Apache Shiro 是 Java 的一个安全框架，目前，使用 Apache Shiro 的�
 
 # 继承 AuthorizingRealm, 实现登录验证和权限管理
 
-Shiro 不会去维护用户、维护权限，需要我们自己去设计实现，然后通过相应的接口注入即可。Shiro 两个重要的功能就是登录认证和权限认证，通常我们只需要继承 AuthorizingRealm 类，实现 doGetAuthenticationInfo (登录认证) 和 doGetAuthenticationInfo (权限认证) 即可。
+Shiro 不会去维护用户、维护权限, 需要我们自己去设计实现, 然后通过相应的接口注入即可。Shiro 两个重要的功能就是登录认证和权限认证, 通常我们只需要继承 AuthorizingRealm 类, 实现 doGetAuthenticationInfo (登录认证) 和 doGetAuthenticationInfo (权限认证) 即可。
 
 ``` java
 @Component
@@ -38,7 +38,7 @@ public class CommonRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        // 这里为了测试没有通过数据来判断用户是否存在、登录是否成功，直接返回登录成功
+        // 这里为了测试没有通过数据来判断用户是否存在、登录是否成功, 直接返回登录成功
         String username = (String) authenticationToken.getPrincipal();
         String password = new String((char[])authenticationToken.getCredentials());
         log.warn("username : " + username);
@@ -108,7 +108,7 @@ public class ShiroConfig  {
         map.put("/img/**", "anon");
         map.put("/js/**", "anon");
 
-        // 除去以上之外，所有 URL 都需要登录认证才能访问，这个需要放在最后
+        // 除去以上之外, 所有 URL 都需要登录认证才能访问, 这个需要放在最后
         map.put("/**", "authc");
 
         // 没有认证时将会打开这个页面
@@ -124,7 +124,7 @@ public class ShiroConfig  {
 
 # 使用和测试
 
-在登录接口添加 Shiro 登录相关的代码，登录成功后可以获取 Session 用于保存用户数据。
+在登录接口添加 Shiro 登录相关的代码, 登录成功后可以获取 Session 用于保存用户数据。
 
 ``` java
 // Shiro 登录
@@ -140,7 +140,7 @@ session.setAttribute("accountId", userInfo.getString("id"));
 session.setTimeout(24 * 3600 * 1000);
 ```
 
-经过上面的步骤就可以简单的使用 Shiro 来进行登录认证和权限管理了，让我们来简单的测试一下，创建一个访问的页面的 URL，使用注解的方式表明这个访问 URL 需要 add 权限，代码如下。
+经过上面的步骤就可以简单的使用 Shiro 来进行登录认证和权限管理了, 让我们来简单的测试一下, 创建一个访问的页面的 URL, 使用注解的方式表明这个访问 URL 需要 add 权限, 代码如下。
 
 ``` java
 @Controller
@@ -154,7 +154,7 @@ public class ViewRouterController {
 }
 ```
 
-接着创建两个页面，一个是登录页面，一个是没有权限时的页面，分别对应配置 Shiro 里面设置的没有登录时的跳转页面和没有权限时跳转时的页面。
+接着创建两个页面, 一个是登录页面, 一个是没有权限时的页面, 分别对应配置 Shiro 里面设置的没有登录时的跳转页面和没有权限时跳转时的页面。
 
 没有登录时的跳转页面的代码：
 
@@ -220,9 +220,9 @@ public class ViewRouterController {
 </html>
 ```
 
-当我们通过访问 `http://localhost:8182/tdx/template` 访问这个页面的时候，由于我们没有登录，会直接跳转到登录页面。当我们登录后再访问这个链接，就可以跳转到这个页面了。
+当我们通过访问 `http://localhost:8182/tdx/template` 访问这个页面的时候, 由于我们没有登录, 会直接跳转到登录页面。当我们登录后再访问这个链接, 就可以跳转到这个页面了。
 
-** 但是要注意，这里是不对的，我们访问的这个 URL 需要 [add] 权限才能访问，我们在写 Relam 时，并没有给 [add] 权限给任何的用户，但是却可以访问，后台也没有生效和出现异常，为什么呢。我们需要在配置 Shiro 时开启 Shiro 的注解支持，在 ShiroConfig 类里面添加如下代码。**
+** 但是要注意, 这里是不对的, 我们访问的这个 URL 需要 [add] 权限才能访问, 我们在写 Relam 时, 并没有给 [add] 权限给任何的用户, 但是却可以访问, 后台也没有生效和出现异常, 为什么呢。我们需要在配置 Shiro 时开启 Shiro 的注解支持, 在 ShiroConfig 类里面添加如下代码。**
 
 ``` java
 /**
@@ -244,13 +244,13 @@ public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
 }
 ```
 
-开启了 Shiro 注解支持后，再次访问页面，会发现后台出现了异常，提示当前用户没有 [add] 权限。
+开启了 Shiro 注解支持后, 再次访问页面, 会发现后台出现了异常, 提示当前用户没有 [add] 权限。
 
 ``` xml
 org.apache.shiro.authz.UnauthorizedException: Subject does not have permission [add]
 ```
 
-** 这里也需要注意，没有权限，虽然出现了异常，但是却没有跳转到指定的 unauthorized 页面去。看看源码后，配置的角色拦截器必须是 满足     filterinstanceof AuthorizationFilter 无权页面配置才会生效，定义的filter必须满足 filter instanceof AuthorizationFilter，只有 perms，roles，ssl，rest，port 才是属于 AuthorizationFilter，而 anon，authcBasic，auchc，user 是 AuthenticationFilter，所以 unauthorizedUrl设置后页面不跳转；shiro 注解模式下，登录失败或者是没有权限都是抛出异常，并且默认的没有对异常做处理，因此解决方法要么就使用 perms，roles，ssl，rest，port，或者是按照 springmvc 的处理方式，专门配置一个异常处理，例如设置一个全局的异常进行捕捉，当然是用自定义的过滤器也是可以实现的，是用过滤器的方式见下一篇文章**
+** 这里也需要注意, 没有权限, 虽然出现了异常, 但是却没有跳转到指定的 unauthorized 页面去。看看源码后, 配置的角色拦截器必须是 满足     filterinstanceof AuthorizationFilter 无权页面配置才会生效, 定义的filter必须满足 filter instanceof AuthorizationFilter, 只有 perms, roles, ssl, rest, port 才是属于 AuthorizationFilter, 而 anon, authcBasic, auchc, user 是 AuthenticationFilter, 所以 unauthorizedUrl设置后页面不跳转；shiro 注解模式下, 登录失败或者是没有权限都是抛出异常, 并且默认的没有对异常做处理, 因此解决方法要么就使用 perms, roles, ssl, rest, port, 或者是按照 springmvc 的处理方式, 专门配置一个异常处理, 例如设置一个全局的异常进行捕捉, 当然是用自定义的过滤器也是可以实现的, 是用过滤器的方式见下一篇文章**
 
 Shiro 源码如下：
 
@@ -268,7 +268,7 @@ private void applyUnauthorizedUrlIfNecessary(Filter filter) {
 }
 ```
 
-我们可以添加一个全局的异常捕获，通过 JSON 数据通知前台没有权限：
+我们可以添加一个全局的异常捕获, 通过 JSON 数据通知前台没有权限：
 
 ``` java
 @ControllerAdvice

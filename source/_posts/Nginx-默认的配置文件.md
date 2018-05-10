@@ -4,7 +4,7 @@ date: 2018-04-25 22:51:52
 categories:  Nginx
 ---
 
-复制一份初始默认的配置文件，方便之后使用。
+复制一份初始默认的配置文件, 方便之后使用。
 
 # Nginx 默认的配置文件
 
@@ -15,7 +15,7 @@ categories:  Nginx
 
 #user  nobody;
 
-# work 子进程数，Nginx 分成一个主进程和若干个 work 子进程，主进程用于管理子进程，子进程用于处理 Web 请求，可以修改，但太大无益，因为会争夺 CPU，一般设置为 CPU 数 * 核数，例如 1 CPU 4 核的服务器，设置为 4 即可
+# work 子进程数, Nginx 分成一个主进程和若干个 work 子进程, 主进程用于管理子进程, 子进程用于处理 Web 请求, 可以修改, 但太大无益, 因为会争夺 CPU, 一般设置为 CPU 数 * 核数, 例如 1 CPU 4 核的服务器, 设置为 4 即可
 worker_processes  1;
 
 # 日志文件的路径
@@ -28,16 +28,16 @@ worker_processes  1;
 
 events {
     # 配置 Nginx 的链接的特性
-    # 一个 work 子进程支持的最大连接数，根据服务器负载能力更改
+    # 一个 work 子进程支持的最大连接数, 根据服务器负载能力更改
     worker_connections  1024;
 }
 
-# 配置 Http 服务器的主要段，里面的一个 server 就是一个虚拟主机
+# 配置 Http 服务器的主要段, 里面的一个 server 就是一个虚拟主机
 http {
     include       mime.types;
     default_type  application/octet-stream;
 
-    # 日志文件的配置，分片等
+    # 日志文件的配置, 分片等
     #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
     #                  '$status $body_bytes_sent "$http_referer" '
     #                  '"$http_user_agent" "$http_x_forwarded_for"';
@@ -59,7 +59,7 @@ http {
         # listen       192.168.1.1:80 default server; 了解下 default server
         listen       80;
 
-        # 主机，多个使用空格分隔
+        # 主机, 多个使用空格分隔
         server_name localhost example.net
 
         # 字符编码
