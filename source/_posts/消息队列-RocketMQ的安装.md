@@ -47,7 +47,7 @@ export PATH=$PATH:$ROCKETMQ_HOME/bin
 
 ## 启动 RcoketMQ
 
-启动 RcoketMQ 要先启动 mqnamesrv, 然后再启动 broket,  所以首先启动 mqnamesrv
+启动 RcoketMQ 要先启动 mqnamesrv, 然后再启动 broket,  所以首先启动 mqnamesrv，注意的是如果不去调整 jvm 的参数，默认的会使用最大内存的四分之一，如果内存足够，可以忽略这一点，如果内存不足，就需要自己根据情况调整 jvm 参数了。
 
 ```sh
 nohup sh mqnamesrv >nameser.log 2>&1 &
@@ -73,6 +73,10 @@ nohup sh mqbroker -n 192.168.1.15:9876 >broker.log 2>&1 &
 ```txt
 The broker[lupengweideMacBook-Pro.local, 192.168.1.15:10911] boot success. serializeType=JSON and name server is 192.168.1.15:9876
 ```
+
+启动后，发现自动在 Linux 目录下生成了以下文件，如图所示，除了 app，jdk，maven 和 rocketmq 目录是我创建的外，其他的均是 RocketMQ 启动后生成的。原因是没有在 broker 的配置文件中设置这些路径。
+
+![IMAGE](消息队列-RocketMQ的安装/1525946201065.jpg)
 
 ## 关闭 RcoketMQ
 
