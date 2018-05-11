@@ -47,7 +47,7 @@ export PATH=$PATH:$ROCKETMQ_HOME/bin
 
 ## 启动 RcoketMQ
 
-启动 RcoketMQ 要先启动 mqnamesrv, 然后再启动 broket,  所以首先启动 mqnamesrv，注意的是如果不去调整 jvm 的参数，默认的会使用最大内存的四分之一，如果内存足够，可以忽略这一点，如果内存不足，就需要自己根据情况调整 jvm 参数了。
+启动 RcoketMQ 要先启动 mqnamesrv, 然后再启动 broket,  所以首先启动 mqnamesrv，注意的是如果不去调整 jvm 的参数，默认的会使用 4G 内存，如果内存足够，可以忽略这一点，如果内存不足，就需要自己根据情况调整 jvm 参数了，见 `http://heht.net/articles/2018/04/03/1522752731021.html`。
 
 ```sh
 nohup sh mqnamesrv >nameser.log 2>&1 &
