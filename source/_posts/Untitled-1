@@ -45,3 +45,5 @@ export ROCKETMQ_HOME=/Users/lupengwei/RocketMQ/alibaba-rocketmq
 export PATH=$PATH:$ROCKETMQ_HOME/bin
 
 export PATH=$PATH:/Users/lupengwei/Library/Android/sdk/platform-tools
+
+172.18.17.156

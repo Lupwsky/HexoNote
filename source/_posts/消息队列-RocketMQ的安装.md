@@ -74,7 +74,32 @@ nohup sh mqbroker -n 192.168.1.15:9876 >broker.log 2>&1 &
 The broker[lupengweideMacBook-Pro.local, 192.168.1.15:10911] boot success. serializeType=JSON and name server is 192.168.1.15:9876
 ```
 
+一般云主机上有一个内网的地址，使用默认的方式启动 broker 很有可能自动选择的 IP 是内网的，导致客户端连接失败，可以使用配置文件来启动 broker
+
 启动后，发现自动在 Linux 目录下生成了以下文件，如图所示，除了 app，jdk，maven 和 rocketmq 目录是我创建的外，其他的均是 RocketMQ 启动后生成的。原因是没有在 broker 的配置文件中设置这些路径。
+
+```sh
+# mqbroker 生成一个配置文件
+sh mqbroker -m broker.properties
+```
+
+配置如下
+
+```ini
+namesrvAddr=外网IP(或者你的内网IP):9876
+brokerIP1=外网IP
+brokerName=hht
+brokerClusterName=DefaultCluster
+brokerId=0
+autoCreateTopicEnable=true
+autoCreateSubscriptionGroup=true
+```
+
+接着启动 borker
+
+```sh
+nohup sh mqbroker -n 119.23.238.132:9876 -c ./broker.properties >broker.log 2>&1 &
+```
 
 ![IMAGE](消息队列-RocketMQ的安装/1525946201065.jpg)
 
@@ -93,3 +118,4 @@ sh mqshutdown namesrv
 # 学习资料
 
 `http://www.bilibili.com/video/av11074519/`
+`http://heht.net/articles/2018/04/03/1522752731021.html`
