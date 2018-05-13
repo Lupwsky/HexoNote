@@ -30,7 +30,7 @@ Thread 多次调用 start 方法，会出现 java.lang.IllegalThreadStateExcepti
 
 # start 方法和 run 方法
 
-Thread 既可以调用 start 方法开始线程任务，调用 run 方法也可以执行这一段要执行的任务，区别是，调用 start 方法是一个异步的线程，具有以不执行的效果，调用 run 方法则是一个同步的方法，直接由 main 线程执行了。
+Thread 既可以调用 start 方法开始线程任务，调用 run 方法也可以执行这一段要执行的任务，区别是，调用 start 方法是一个异步的线程，具有以异步的效果，调用 run 方法则是一个同步的方法，直接由 main 线程执行了。
 
 # currentThread 方法
 
@@ -157,3 +157,38 @@ getId 方法可以获取线程的唯一 id
 - 调用 stop 方法
 - 使用 interrupt 方法
 - 抛出异常终止线程
+
+## stop 方法停止线程
+
+stop 方法是 jdk1.0 提供的一个方法，调用这个方法**会抛出 ThreadDeath 异常让线程停止，同时会释放线程所持有的锁**，但是由于这个方法不安全已经被废弃，主不安全的原因主要有下面几点。
+
+### 原因一：资源不被释放
+
+ThreadDeath 异常可以在线程的任意地方抛出，哪怕是在 catch 或者 finally 语句中也可以，这会导致一些资源不能被释放。
+
+### 原因二：不一定就立即停止线程
+
+在某些情况下，即使调用了 stop 方法，也不能立即停止线程，如下面的例子：
+
+```java
+public static void main(String[] args) {
+    Thread thread = new Thread() {
+        public synchronized void run() {
+            for (int i = 0; i < 100000; i++) {
+                this.sleep(100);
+            }
+        }
+    };
+    thread.start();
+    Thread.sleep(1000);
+    thread.stop();
+}
+```
+
+执行这段代码后，在调用 thread.stop() 方法后，线程没有停止，官方文档上不是说调用了 stop 后应该立刻抛出 ThreadDeath 异常停止线程么，看看源码就知道了，调用 thread.stop() 方法最终调用的是原生的方法 thread.stop0()，这是一个同步的方法，而例子中的 run() 方法也是一个同步的方法，在线程运行了 run() 方法后，已经获得了锁，需要等到 thread.stop0() 方法需要等到 run() 方法结束后才能执行，所以这种情况下，即使调用了 stop() 方法也不会停止线程。
+
+### 原因三：立即释放锁破导致数据不一致
+
+另外一个问题就是调用 stop() 方法时会同时释放线程所持有的锁带来的问题，一般任何进行加锁的代码块，都是为了保护数据的一致性，如果在调用 thread.stop() 后导致了该线程所持有的所有锁的突然释放，那么被保护数据就有可能呈现不一致性，其他线程在使用这些被破坏的数据时，有可能导致一些很奇怪的应用程序错误。
+
+## interrupt 方法停止线程
