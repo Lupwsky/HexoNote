@@ -1,7 +1,7 @@
 ---
 title: Docker-搭建Redis服务
 date: 2018-03-31 15:48:26
-tags:
+categories: Docker
 ---
 
 Redis 是一个使用ANSI C编写的开源、支持网络、基于内存、可选持久性的键值对存储数据库 (摘自维基百科), 对于 Redis 的入门学习资料可以参考链接 : `http://www.runoob.com/redis/redis-tutorial.html`, 本篇笔记主要记录使用 Docker 使用官方的镜像来搭建一个单机版的 Redis 服务。
