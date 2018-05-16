@@ -4,9 +4,13 @@ date: 2018-05-15 10:56:56
 categories: Java
 ---
 
+Java 中的 Object 类是所有类的父类，它里面包含了以下 12 个方法。
+
 ![IMAGE](Java-Object的方法/1526371964387.jpg)
 
-Java Object 类的源码：
+<!-- more -->
+
+Java Object 类的源码如下：
 
 ```java
 public class Object {
