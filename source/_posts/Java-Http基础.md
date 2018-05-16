@@ -1,7 +1,7 @@
 ---
 title: Java-HTTP基础
 date: 2018-05-11 18:47:14
-tags:
+categories: Java
 ---
 
 HTTP 协议即超文本传输协议，是互联网上应用最广泛的一种协议，是TCP/IP协议的一个应用层协议，用于定义WEB浏览器和WEB服务器之间交换数据的过程。
@@ -10,7 +10,7 @@ HTTP 协议即超文本传输协议，是互联网上应用最广泛的一种协
 
 如下图所示，要求自己能画出这个协议图
 
- ![IMAGE](Java-Http基础/E3DC7E3C04351A1CE1CDF3F10DCFB847.jpg)
+<img src="Java-Http基础/E3DC7E3C04351A1CE1CDF3F10DCFB847.jpg" width="400" height="150">
 
 * HTTP 协议通常在 TCP 协议之上，有时候也承载于 TSL、SSL 之上，即我们通常说的 HTTPS，默认 HTTP 的端口号为 80，HTTP S的端口号为 443。
 * HTTP 请求时一种无状态的请求，服务器在响应客户端后，链接就会断开，可以在请求头中添加 Connection:keep-alive，在请求数据后任然保持链接，浏览器可以通过相同的链接发送请求，可以节省建立链接花费的时间，也可以节约网络带宽。
