@@ -246,3 +246,7 @@ ZoneId zone = ZoneId.systemDefault();
 Instant instant = localDateTime.atZone(zone).toInstant();
 Date date = Date.from(instant);
 ```
+
+# 其他资料
+
+Java 8新的时间日期库的20个使用示例：`https://wizardforcel.gitbooks.io/java8-tutorials/content/Java%208%20%E6%96%B0%E7%9A%84%E6%97%B6%E9%97%B4%E6%97%A5%E6%9C%9F%E5%BA%93%E7%9A%8420%E4%B8%AA%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B.html`
