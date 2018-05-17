@@ -82,28 +82,28 @@ join 方法的实现是通过 等待/通知消息机制来实现的，看一看 
 
 ```java
 public final synchronized void join(long millis) throws InterruptedException {
-        long base = System.currentTimeMillis();
-        long now = 0;
+    long base = System.currentTimeMillis();
+    long now = 0;
 
-        if (millis < 0) {
-            throw new IllegalArgumentException("timeout value is negative");
+    if (millis < 0) {
+        throw new IllegalArgumentException("timeout value is negative");
+    }
+
+    if (millis == 0) {
+        while (isAlive()) {
+            wait(0);
         }
-
-        if (millis == 0) {
-            while (isAlive()) {
-                wait(0);
+    } else {
+        while (isAlive()) {
+            long delay = millis - now;
+            if (delay <= 0) {
+                break;
             }
-        } else {
-            while (isAlive()) {
-                long delay = millis - now;
-                if (delay <= 0) {
-                    break;
-                }
-                wait(delay);  // 多次调用 wait 方法，新设置的时间覆盖先前设置的时间
-                now = System.currentTimeMillis() - base;
-            }
+            wait(delay);  // 多次调用 wait 方法，新设置的时间覆盖先前设置的时间
+            now = System.currentTimeMillis() - base;
         }
     }
+}
 ```
 
 可以看到源码里面调用的是 wait 方法实现的，这里还要注意的是 wait 方法和 this.wait 方法的区别，wait 方法在这里是 CurrentThread.getThread().wait()，表示调用的是主线程的 wait 方法，让主线程处于等待状态。
