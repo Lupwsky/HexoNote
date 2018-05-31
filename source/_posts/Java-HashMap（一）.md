@@ -4,7 +4,7 @@ date: 2018-05-29 23:10:10
 categories: Java
 ---
 
-HashMap 是 Java 中一种重要的数据结构，由数组加链表组成 (数组和链表是 Java 中的基础数据结构)，HashMap 是 Map 接口的非同步实现，HashMap 同时是基于 HashTable 实现的。为了方便后面深入的理解 HashMap，首先需要了解的是哈希表和 Java 中的 Map 接口的基础知识。
+HashMap 是 Java 中一种重要的数据结构，由数组加链表组成 (数组和链表是 Java 中的基础数据结构)，HashMap 是 Map 接口的非同步实现，HashMap 同时也是基于哈希算法实现的。为了方便后面深入的理解 HashMap，首先需要了解的是哈希表和 Java 中的 Map 接口的基础知识。
 
 # 哈希表
 
