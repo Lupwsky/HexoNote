@@ -183,6 +183,8 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict) {
 }
 ```
 
+**关于 modCount：**java.util.HashMap 不是线程安全的，因此如果在使用迭代器的过程中有其他线程修改了 HashMap，那么将抛出 ConcurrentModificationException，这就是 Fail-Fast 机制，在源码中的实现是通过 modCount 实现的，modCount 是修改次数，对 HashMap 内容的修改都将增加这个值，那么在迭代器初始化过程中会将这个值赋给迭代器的 expectedModCount，在迭代过程中，会去判断 modCount 跟 expectedModCount 是否相等，如果不相等就表示已经有其他线程修改了 HashMap，这个时候就会抛出 ConcurrentModificationException 异常，主要在多线程环境下需要使用，防止一个线程正在迭代遍历，另一个线程修改了这个集合数据的结构，相似的还有 ArrayList，LinkedList等也是采用了 Fail-Fast 机制。
+
 # HashMap 获取值
 
 HashMap 获取值主要调用的 get() 方法，如果 key 存在返回，最终调用的是 getNode() 方法：
