@@ -6,13 +6,21 @@ categories: Java
 
 HashMap 是 Java 中一种重要的结构，在上一篇笔记中已经了解了什么是哈希表和 Map 接口，HashMap 是基于 Hash 表的设计实现的，也同时实现了 Map 接口，这篇笔记继续深入的了解 HashMap 从源码上具体是如何实现的。
 
+# HashMap
+
+HashMap 是 Java 中经常使用的一种数据结构，HashMap 是 Map 的实现类，关于 Map 其常用的实现类和类关系继承图如下 UML 图所示：
+
+<img src="Java-HashMap（二）/20180531180921.jpg" width="1000" height="370"/>
+
+<!-- more -->
+
+本篇文章只简单记录 HashMap 的实现原理，其他的 Map 的学习笔记之后再另外记录。
+
 # HashMap 的结构
 
 HashMap 组成的结构是 数组 + 链表 + 红黑树 (JDK 1.8 添加的，链表长度大于 8 的时候转换成红黑树) 实现的，这个数组即哈希表，为了解决冲突采用了单独列表法来实现的，其结构的框架图如下：
 
 <img src="Java-HashMap（二）/20180531121839.jpg" width="700" height="450"/>
-
-<!-- more -->
 
 既然 HashMap 是基于哈希表的数据结构设计的，从源码的角度了解下 HashMap 时如何实现哈希表、哈希函数的。
 
