@@ -1,7 +1,7 @@
 ---
 title: SpringBoot-配置使用gRPC
 date: 2018-06-17 17:26:12
-categories: SpringBoot
+categories: Spring
 ---
 
 gRPC 是一 Google 开源的的 RPC 框架，主要面向移动应用开发并基于 HTTP/2 协议标准和 ProtoBuf 序列化协议来设计的，gRPC 需要配合 ProtoBuf 来使用，首先需要先写好 .proto 描述文件定义 RPC 接口，然后使用 protoc 编译工具编译 .proto 文件生成客户端和服务端所需要的接口代码，这篇笔记主要记录下在 SpringBoot 项目中如何使用 gRPC。gPRC 和 ProtoBuf 的一些参考资料如下：

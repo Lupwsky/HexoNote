@@ -1,7 +1,7 @@
 ---
 title: SpringBoot-配置使用Log4j2
 date: 2018-05-08 09:33:58
-categories: SpringBoot
+categories: Spring
 ---
 
 # 添加相关依赖

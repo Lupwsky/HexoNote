@@ -1,7 +1,7 @@
 ---
 title: SpringBoot-启动错误问题笔记
 date: 2018-05-07 16:43:27
-categories: SpringBoot
+categories: Spring
 ---
 
 主要记载使用 SpringBoot 构建的项目时出现的一些问题和解决非方法。

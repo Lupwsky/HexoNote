@@ -1,7 +1,7 @@
 ---
 title: SpringBoot-配置logback打印日志
 date: 2018-04-08 14:30:26
-categories:  SpringBoot
+categories:  Spring
 ---
 
 ``` ini

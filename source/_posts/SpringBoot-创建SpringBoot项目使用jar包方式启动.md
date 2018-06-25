@@ -1,7 +1,7 @@
 ---
 title: SpringBoot-创建SpringBoot项目使用jar包方式启动
 date: 2018-05-07 17:10:53
-categories: SpringBoot
+categories: Spring
 ---
 
 # 创建项目

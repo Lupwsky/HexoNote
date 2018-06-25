@@ -1,7 +1,7 @@
 ---
 title: SpringBoot-集成Shiro（一）
 date: 2018-03-29 14:51:13
-categories:  SpringBoot
+categories:  Spring
 ---
 
 Apache Shiro 是 Java 的一个安全框架, 目前, 使用 Apache Shiro 的人越来越多, 因为它相对 Spring Security 比较简单, 虽然功能没有后者强大。Shiro 可以非常容易的开发出足够好的应用, 其不仅可以用在 JavaSE 环境, 也可以用在 JavaEE 环境, Shiro 可以帮助我们完成：认证、授权、加密、会话管理、与Web集成、缓存等。这篇学习笔记主要简单的说明如何在 SpringBoot 中如何集成 Shiro。

@@ -1,7 +1,7 @@
 ---
 title: SpringBoot-集成MyBatis
 date: 2018-05-08 10:03:46
-categories: SpringBoot
+categories: Spring
 ---
 
 # 添加依赖

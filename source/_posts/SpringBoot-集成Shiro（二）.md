@@ -1,7 +1,7 @@
 ---
 title: SpringBoot-集成Shiro（二）
 date: 2018-03-30 12:04:35
-categories:  SpringBoot
+categories:  Spring
 ---
 
 在上一篇笔记 SpringBoot-集成Shiro（一）中, 已经在 SpringBoot 中顺利的集成和测试了 Shiro 的使用, 这一篇介绍一下在 Thymeleaf 模板引擎里面使用 Shiro 权限标签和使用 ajax 请求时没有权限或者没有认证返回 JSON 数据而不是跳转到指定的页面。因为这些配置已经实际的项目中成功的使用了, 因此笔记里面只说明配置和使用的过程, 就不详细的测试了。
