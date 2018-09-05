@@ -1,5 +1,5 @@
 ---
-title: Spring笔记-SpringIoC容器基础知识
+title: Spring-SpringIoC容器基础知识
 date: 2018-03-25 22:33:35
 categories:  Spring
 ---
@@ -170,7 +170,7 @@ Spring 通过简单的配置文件可以完成 bean 的实例化和依赖注入�
 
 Spring 通过读取配置文件来获取 Bena 初始化配置和依赖关系，需要进行资源的访问才能获取这些信息，JDK 所提供的资源访问类 java.net.URL、File类等并不能很好的访问类路径和 WEB 容器上下文的资源文件，因此 Spring 设计了一个 Resource 接口，并提供了相关的实现类，以便于在各种场景下方便的访问资源问件，具体的实现类如下图所示:
 
-![IMAGE](Spring笔记-SpringIoC容器相关知识/20180327233518.png)
+![IMAGE](Spring-SpringIoC容器相关知识/20180327233518.png)
 
 先看看 Resource 接口的定义的方法:
 
@@ -263,7 +263,7 @@ ftp:// | ftp://www.lupw.com/beans.xml | UrlResource 从 FTP 服务器中加载�
 
 上面的资源地址需要通过资源加载器才能加载到资源，Spring 定义了加载器的接口 ResourceLoader，它只有一个接口 getResource(String location)，并且只支持资源地址前缀的表达式，不支持 Ant 风格的资源地址表达式。ResourcePatternResolver 扩展了 ResourceLoader 接口，可以支持 Ant 风格的资源地址表达式，PathMatchingResourcePatternResolver 则是一个标准的实现类，继承关系如下图所示。
 
-![IMAGE](Spring笔记-SpringIoC容器相关知识/20180328011514.png)
+![IMAGE](Spring-SpringIoC容器相关知识/20180328011514.png)
 
 PathMatchingResourcePatternResolver 类的使用方法如下。
 
