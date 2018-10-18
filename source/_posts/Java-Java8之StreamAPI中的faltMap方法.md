@@ -1,7 +1,7 @@
 ---
 title: Java-Java8之StreamAPI中的faltMap方法
 date: 2018-10-18 23:21:49
-tags:
+categories: Java
 ---
 
 # flatMap 方法
@@ -39,7 +39,10 @@ List<DataNode> newDataList = dataList.stream().flatMap(Collection::stream).colle
 log.info(newDataList.toString());
 ```
 
+<!-- more -->
+
 输出结果如下:
+
 ```txt
 [
     DataNode(name=A, soc=1),

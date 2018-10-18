@@ -1,11 +1,40 @@
 ---
 title: Java-Java8函数式接口
 date: 2018-10-18 23:19:22
-tags:
+categories: Java
 ---
 
+在了解 Java 8 的函数表达式之前, 先了解下 Lambda 表达式, Lambda 表达式是一种可传递匿名表达式的一种方式, 可以作为参数传递或者存储在变量中, 使用 Lambda 可以让`行为参数化` (关于行为参数见 `Java-行为参数化` 笔记) 更加的灵活
 
-# Predicate
+# Lamdbda 的语法
+
+## (parameters) -> expression
+
+这种语法函数体是一个表达式, 表达式后面不需要分号, 不需要带大括号, 例 `(x) -> "TEST"`
+
+## (parameters) -> {statements;}
+
+这种语法的函数体是语句, 语句后面需要带分号, 且需要带大括号, 例 `(x) -> {return "TEST";}`
+
+# 可以使用 Lambda 表达式的地方
+
+在`函数式接口上`可以使用 Lambda 表达式
+
+<!-- more -->
+
+# 函数式接口
+
+函数式接口是之定义了一个抽象方法的接口, 在 Java 8 中的接口开始运行拥有多个默认方法, 即使有多个默认方法, 只要只有一个抽象方法任然还是一个函数式接口
+
+# 函数式接口和 Lambda 表达式
+
+Lambda 表达式是函数式接口的一个具体实例 (使用内部匿名类也可以完成 Lambda 表达式一样的功能, 但是比较笨拙)
+
+# Java 8 中的新增的函数式接口
+
+Java 8 的 java.util.function 包中引入了一些新的函数式接口, 如 Predicate, Consumer 和 Function, 现在分别介绍这几个接口
+
+## Predicate
 
 Predicate 接口里面有一个返回 boolean 类型的 test 抽象方法和其他几个默认实现方法, 当调用 test 方法时会执行传递进来的 Lambad 表达式的方法体里面的代码并返回一个 boolean 对象, 例如实现一个类似 Stream API 中的 filter 方法这种需求可以使用这个接口, Predicate 接口的源码如下:
 
@@ -104,7 +133,7 @@ log.info("RESULT = " + filterDataList.toString());
 
 从输出结果可以看到最终的结果集都是 name = "L" 并且 sco > 3 的元素, 也可以了解到 and, or 和 negate 方法都是在 test 方法过滤元素之前执行的
 
-# Comsumer
+## Comsumer
 
 Consumer 接口里面定义了一个 accept 的抽象方法, 接收一个泛型参数, 返回一个 void 类型, 另外一个默认的实现方法 addThen 可以在 accept 方法执行后再次对数据进行一次操作, 如果仅需要对某个数据进行操作, 可以使用次接口, 类似于 Stream API 中的 forEach 方法, Consumer 接口的源码如下:
 
@@ -168,7 +197,7 @@ private static void forEach(List<DataNode> dataNodeList, Consumer<DataNode> cons
 [main] INFO com.thread.excutor.TestMain - RESULT  = [DataNode(name=A1, soc=2), DataNode(name=B1, soc=3), DataNode(name=C1, soc=4), DataNode(name=D1, soc=5)]
 ```
 
-# Function
+## Function
 
 Function 接口定义了一个 apply 的接口, 接收一个泛型类型 T, 并返回一个泛型 R, 其中还有两个默认实现的方法, compose 和 andThen, 这两个方法分别在 apply 方法执行前调用和执行后再次对数据进行一次映射, 如果需要将某个类型映射成其他的类型, 可以使用该接口, 和 Stream API 中的 map 方法类似, Function 源码如下:
 
@@ -218,7 +247,7 @@ private static List<String> map(List<DataNode> dataNodeList, Function<DataNode, 
 [main] INFO com.thread.excutor.TestMain - [A, B, C, D]
 ```
 
-# Supplier
+## Supplier
 
 Supplier 接口只有一个抽象的 get 方法, 不接受任何参数, 返回一个泛型 T 参数, 比较简单就不举例了, 源码如下:
 
@@ -229,7 +258,7 @@ public interface Supplier<T> {
 }
 ```
 
-# 其他的接口
+## 其他的接口
 
 上面说到的 Predicate, Comsumer 和 Function 是 java.util.function 提供的接口, 除了这些接口外, 还提供了一些其他的接口, 但都是和 Predicate, Comsumer 和 Function 相关的接口, 主要分成以下两类:
 
