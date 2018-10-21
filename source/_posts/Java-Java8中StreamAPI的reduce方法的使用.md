@@ -49,19 +49,19 @@ log.info("finalDataNode" + JSON.toJSONString(dataNode));
 输出结果如下:
 
 ```txt
-17:12:04.603 [main] INFO com.thread.excutor.TestMain - result = {"name":"A","soc":1}
-17:12:04.619 [main] INFO com.thread.excutor.TestMain - item   = {"name":"B","soc":1}
+[main] - result = {"name":"A","soc":1}
+[main] - item   = {"name":"B","soc":1}
 
-17:12:04.619 [main] INFO com.thread.excutor.TestMain - result = {"name":"2","soc":2}
-17:12:04.619 [main] INFO com.thread.excutor.TestMain - item   = {"name":"C","soc":1}
+[main] - result = {"name":"2","soc":2}
+[main] - item   = {"name":"C","soc":1}
 
-17:12:04.619 [main] INFO com.thread.excutor.TestMain - result = {"name":"3","soc":3}
-17:12:04.619 [main] INFO com.thread.excutor.TestMain - item   = {"name":"D","soc":1}
+[main] - result = {"name":"3","soc":3}
+[main] - item   = {"name":"D","soc":1}
 
-17:12:04.619 [main] INFO com.thread.excutor.TestMain - result = {"name":"4","soc":4}
-17:12:04.619 [main] INFO com.thread.excutor.TestMain - item   = {"name":"E","soc":1}
+[main] - result = {"name":"4","soc":4}
+[main] - item   = {"name":"E","soc":1}
 
-17:12:04.619 [main] INFO com.thread.excutor.TestMain - finalDataNode{"name":"5","soc":5}
+[main] - finalDataNode{"name":"5","soc":5}
 ```
 
 # T reduce(T identity, BinaryOperator<T> accumulator) 方法
@@ -84,22 +84,22 @@ log.info("finalDataNode" + JSON.toJSONString(finalDataNode));
 输出结果如下:
 
 ```txt
-19:12:19.894 [main] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-19:12:19.894 [main] INFO com.thread.excutor.TestMain - item   = {"name":"A","soc":1}
+[main] - result = {"name":"I","soc":5}
+[main] - item   = {"name":"A","soc":1}
 
-19:12:19.894 [main] INFO com.thread.excutor.TestMain - result = {"name":"6","soc":6}
-19:12:19.894 [main] INFO com.thread.excutor.TestMain - item   = {"name":"B","soc":1}
+[main] - result = {"name":"6","soc":6}
+[main] - item   = {"name":"B","soc":1}
 
-19:12:19.894 [main] INFO com.thread.excutor.TestMain - result = {"name":"7","soc":7}
-19:12:19.894 [main] INFO com.thread.excutor.TestMain - item   = {"name":"C","soc":1}
+[main] - result = {"name":"7","soc":7}
+[main] - item   = {"name":"C","soc":1}
 
-19:12:19.894 [main] INFO com.thread.excutor.TestMain - result = {"name":"8","soc":8}
-19:12:19.894 [main] INFO com.thread.excutor.TestMain - item   = {"name":"D","soc":1}
+[main] - result = {"name":"8","soc":8}
+[main] - item   = {"name":"D","soc":1}
 
-19:12:19.894 [main] INFO com.thread.excutor.TestMain - result = {"name":"9","soc":9}
-19:12:19.894 [main] INFO com.thread.excutor.TestMain - item   = {"name":"E","soc":1}
+[main] - result = {"name":"9","soc":9}
+[main] - item   = {"name":"E","soc":1}
 
-19:12:19.894 [main] INFO com.thread.excutor.TestMain - finalDataNode{"name":"10","soc":10}
+[main] - finalDataNode{"name":"10","soc":10}
 ```
 
 # <U> U reduce(U identity, BiFunction<U, ? super T, U> accumulator, BinaryOperator<U> combiner) 方法
@@ -155,59 +155,59 @@ log.info("finalDataNode" + JSON.toJSONString(finalDataNode));
 输出结果如下:
 
 ```txt
-20:29:19.194 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.194 [ForkJoinPool.commonPool-worker-5] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.194 [ForkJoinPool.commonPool-worker-3] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.194 [ForkJoinPool.commonPool-worker-7] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.194 [ForkJoinPool.commonPool-worker-7] INFO com.thread.excutor.TestMain - item   = {"name":"W","soc":1}
-20:29:19.194 [ForkJoinPool.commonPool-worker-7] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.194 [ForkJoinPool.commonPool-worker-7] INFO com.thread.excutor.TestMain - item   = {"name":"L","soc":1}
-20:29:19.194 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"X","soc":1}
-20:29:19.194 [main                            ] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.194 [ForkJoinPool.commonPool-worker-4] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.194 [main                            ] INFO com.thread.excutor.TestMain - item   = {"name":"Q","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"B","soc":1}
-20:29:19.210 [main                            ] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [main                            ] INFO com.thread.excutor.TestMain - item   = {"name":"S","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"C","soc":1}
-20:29:19.210 [main                            ] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [main                            ] INFO com.thread.excutor.TestMain - item   = {"name":"R","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [main                            ] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [main                            ] INFO com.thread.excutor.TestMain - item   = {"name":"O","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"A","soc":1}
-20:29:19.210 [main                            ] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [main                            ] INFO com.thread.excutor.TestMain - item   = {"name":"P","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"K","soc":1}
-20:29:19.210 [main                            ] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"J","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"Y","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"G","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"I","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.194 [ForkJoinPool.commonPool-worker-6] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"V","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.194 [ForkJoinPool.commonPool-worker-2] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"F","soc":1}
-20:29:19.194 [ForkJoinPool.commonPool-worker-5] INFO com.thread.excutor.TestMain - item   = {"name":"Z","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-2] INFO com.thread.excutor.TestMain - item   = {"name":"H","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-6] INFO com.thread.excutor.TestMain - item   = {"name":"T","soc":1}
-20:29:19.194 [ForkJoinPool.commonPool-worker-3] INFO com.thread.excutor.TestMain - item   = {"name":"U","soc":1}
-20:29:19.194 [ForkJoinPool.commonPool-worker-7] INFO com.thread.excutor.TestMain - result = {"name":"I","soc":5}
-20:29:19.210 [ForkJoinPool.commonPool-worker-4] INFO com.thread.excutor.TestMain - item   = {"name":"D","soc":1}
-20:29:19.210 [main                            ] INFO com.thread.excutor.TestMain - item   = {"name":"N","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-1] INFO com.thread.excutor.TestMain - item   = {"name":"E","soc":1}
-20:29:19.210 [ForkJoinPool.commonPool-worker-7] INFO com.thread.excutor.TestMain - item   = {"name":"M","soc":1}
-20:29:19.226 [main                            ] INFO com.thread.excutor.TestMain - finalDataNode{"name":"F","soc":156}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-5] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-3] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-7] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-7] - item   = {"name":"W","soc":1}
+[ForkJoinPool.commonPool-worker-7] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-7] - item   = {"name":"L","soc":1}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"X","soc":1}
+[main                            ] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-4] - result = {"name":"I","soc":5}
+[main                            ] - item   = {"name":"Q","soc":1}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"B","soc":1}
+[main                            ] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[main                            ] - item   = {"name":"S","soc":1}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"C","soc":1}
+[main                            ] - result = {"name":"I","soc":5}
+[main                            ] - item   = {"name":"R","soc":1}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[main                            ] - result = {"name":"I","soc":5}
+[main                            ] - item   = {"name":"O","soc":1}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"A","soc":1}
+[main                            ] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[main                            ] - item   = {"name":"P","soc":1}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"K","soc":1}
+[main                            ] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"J","soc":1}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"Y","soc":1}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"G","soc":1}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"I","soc":1}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-6] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"V","soc":1}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-2] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"F","soc":1}
+[ForkJoinPool.commonPool-worker-5] - item   = {"name":"Z","soc":1}
+[ForkJoinPool.commonPool-worker-2] - item   = {"name":"H","soc":1}
+[ForkJoinPool.commonPool-worker-1] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-6] - item   = {"name":"T","soc":1}
+[ForkJoinPool.commonPool-worker-3] - item   = {"name":"U","soc":1}
+[ForkJoinPool.commonPool-worker-7] - result = {"name":"I","soc":5}
+[ForkJoinPool.commonPool-worker-4] - item   = {"name":"D","soc":1}
+[main                            ] - item   = {"name":"N","soc":1}
+[ForkJoinPool.commonPool-worker-1] - item   = {"name":"E","soc":1}
+[ForkJoinPool.commonPool-worker-7] - item   = {"name":"M","soc":1}
+[main                            ] - finalDataNode{"name":"F","soc":156}
 ```
 
 可以在输出日志看到, 调用了多线程来处理流, 每次调用第二个参数里面的方法时都使用了一个单独的线程处理 (线程池), 总共调用了 26 次, 每个线程计算的时候都会将初始化值带入计算, 一共 26 次, 因此最终结果为 `26 * 5 + 26 * 1 = 156`, 如果初始的值设置为 0 `(DataNode initDataNode = DataNode.builder().name("I").soc(0).build())`, 则最终的结果为 26 了

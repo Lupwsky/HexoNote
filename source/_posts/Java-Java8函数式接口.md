@@ -123,12 +123,12 @@ log.info("RESULT = " + filterDataList.toString());
 输出结果如下:
 
 ```txt
-[main] INFO com.thread.excutor.TestMain - AND    = DataNode(name=I, soc=3)
-[main] INFO com.thread.excutor.TestMain - AND    = DataNode(name=J, soc=3)
-[main] INFO com.thread.excutor.TestMain - AND    = DataNode(name=K, soc=3)
-[main] INFO com.thread.excutor.TestMain - AND    = DataNode(name=L, soc=3)
-[main] INFO com.thread.excutor.TestMain - TEST   = DataNode(name=L, soc=3)
-[main] INFO com.thread.excutor.TestMain - RESULT = [DataNode(name=L, soc=3)]
+[main] - AND    = DataNode(name=I, soc=3)
+[main] - AND    = DataNode(name=J, soc=3)
+[main] - AND    = DataNode(name=K, soc=3)
+[main] - AND    = DataNode(name=L, soc=3)
+[main] - TEST   = DataNode(name=L, soc=3)
+[main] - RESULT = [DataNode(name=L, soc=3)]
 ```
 
 从输出结果可以看到最终的结果集都是 name = "L" 并且 sco > 3 的元素, 也可以了解到 and, or 和 negate 方法都是在 test 方法过滤元素之前执行的
@@ -183,18 +183,18 @@ private static void forEach(List<DataNode> dataNodeList, Consumer<DataNode> cons
 输出结果如下:
 
 ```txt
-[main] INFO com.thread.excutor.TestMain - ACCEPT  = DataNode(name=A, soc=2)
-[main] INFO com.thread.excutor.TestMain - ADDTHEN = DataNode(name=A1, soc=2)
+[main] - ACCEPT  = DataNode(name=A, soc=2)
+[main] - ADDTHEN = DataNode(name=A1, soc=2)
 
-[main] INFO com.thread.excutor.TestMain - ACCEPT  = DataNode(name=B, soc=3)
-[main] INFO com.thread.excutor.TestMain - ADDTHEN = DataNode(name=B1, soc=3)
+[main] - ACCEPT  = DataNode(name=B, soc=3)
+[main] - ADDTHEN = DataNode(name=B1, soc=3)
 
-[main] INFO com.thread.excutor.TestMain - ACCEPT  = DataNode(name=C, soc=4)
-[main] INFO com.thread.excutor.TestMain - ADDTHEN = DataNode(name=C1, soc=4)
+[main] - ACCEPT  = DataNode(name=C, soc=4)
+[main] - ADDTHEN = DataNode(name=C1, soc=4)
 
-[main] INFO com.thread.excutor.TestMain - ACCEPT  = DataNode(name=D, soc=5)
-[main] INFO com.thread.excutor.TestMain - ADDTHEN = DataNode(name=D1, soc=5)
-[main] INFO com.thread.excutor.TestMain - RESULT  = [DataNode(name=A1, soc=2), DataNode(name=B1, soc=3), DataNode(name=C1, soc=4), DataNode(name=D1, soc=5)]
+[main] - ACCEPT  = DataNode(name=D, soc=5)
+[main] - ADDTHEN = DataNode(name=D1, soc=5)
+[main] - RESULT  = [DataNode(name=A1, soc=2), DataNode(name=B1, soc=3), DataNode(name=C1, soc=4), DataNode(name=D1, soc=5)]
 ```
 
 ## Function
@@ -244,7 +244,7 @@ private static List<String> map(List<DataNode> dataNodeList, Function<DataNode, 
 输出结果如下:
 
 ```txt
-[main] INFO com.thread.excutor.TestMain - [A, B, C, D]
+[main] - [A, B, C, D]
 ```
 
 ## Supplier
