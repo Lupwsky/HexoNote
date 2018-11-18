@@ -399,25 +399,197 @@ public static void main(String[] args) {
 
 ```text
 java.util.concurrent.ExecutionException: java.lang.NullPointerException
-	at java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:357)
-	at java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1915)
-	at com.thread.excutor.CompletableFutureMain.main(CompletableFutureMain.java:26)
+    at java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:357)
+    at java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1915)
+    at com.thread.excutor.CompletableFutureMain.main(CompletableFutureMain.java:26)
 Caused by: java.lang.NullPointerException
-	at com.thread.excutor.CompletableFutureMain.lambda$main$1(CompletableFutureMain.java:22)
-	at java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:760)
-	at java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:736)
-	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:474)
-	at java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1595)
-	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
-	at java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1582)
-	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
-	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
-	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
-	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+    at com.thread.excutor.CompletableFutureMain.lambda$main$1(CompletableFutureMain.java:22)
+    at java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:760)
+    at java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:736)
+    at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:474)
+    at java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1595)
+    at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+    at java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1582)
+    at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+    at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+    at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+    at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
 ```
 
 这里出现了一个异常, 日志提示是调用 get 方法出现的异常, 实际上时由于 future 在计算的时候没有出现异常, 在输出日志的时候使用了 error.getMessage() 出现的 (Lamdba 调试时不容易定位问题), 稍微改一下即可
 
+## thenAcceptBoth 方法
+
+thenAcceptBoth 方法的作用和 thenCombine 方法一样用于串行连接两个 future, 有一点区别就是 thenCombine 会有一个返回值, 而 thenAcceptBoth 方法没有, 调用方法和 thenCombine 一样, 这里就不贴出示例代码了 相关的方法定义如下:
+
+```java
+public <U> CompletionStage<Void> thenAcceptBoth(CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action);
+public <U> CompletionStage<Void> thenAcceptBothAsync(CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action);
+public <U> CompletionStage<Void> thenAcceptBothAsync(CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action, Executor executor);
+```
+
+## runAfterBoth 方法
+
+runAfterBoth 方法用于并行连接两个 future, 两个 future 相互之间没有结果上的依赖, 并且在两个 future 都计算完成后, 调用其中一个 future 的 get 方法后, 就会执行 Runnable 的 run 方法, 相关方法的定义如下:
+
+```java
+public CompletionStage<Void> runAfterBoth(CompletionStage<?> other,Runnable action);
+public CompletionStage<Void> runAfterBothAsync(CompletionStage<?> other,Runnable action);
+public CompletionStage<Void> runAfterBothAsync(CompletionStage<?> other,Runnable action, Executor executor);
+```
+
+使用示例如下:
+
+```java
+CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(() -> {
+    try {
+        Thread.sleep(1000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    return 100;
+});
+
+CompletableFuture<Integer> future2 = CompletableFuture.supplyAsync(() -> {
+    try {
+        Thread.sleep(5000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    return 200;
+});
+
+future1.runAfterBoth(future2, () -> log.info("[MAIN] 5s 后所有计算完成").join;
+```
+
+输出结果如下:
+
+```text
+[ForkJoinPool.commonPool-worker-2] INFO com.thread.excutor.CompletableFutureMain - [MAIN] 5s 后所有计算完成
+```
+
+## runAfterEither 方法
+
+和 runAfterBoth 方法相反, runAfterBoth 方法用于连接两个 future, 但是只要任何一个 future 执行完成就会调用 Runnable 的方法, 使用方法和 runAfterBoth 方法类似, 这里就不贴出示例代码了, 相关方法的定义如下:
+
+```java
+public CompletionStage<Void> runAfterEither(CompletionStage<?> other, Runnable action);
+public CompletionStage<Void> runAfterEitherAsync(CompletionStage<?> other, Runnable action);
+public CompletionStage<Void> runAfterEitherAsync(CompletionStage<?> other, Runnable action, Executor executor);
+```
+
+## applyToEither 方法
+
+用于连接两个 future, 选择计算结果最快的一个 future 返回, 并对 CompletableFuture 的泛型类型进行转换, 使用方法和 thenApply 类似, 这里就不贴出测试代码了, 相关方法的定义如下:
+
+```java
+public <U> CompletionStage<U> applyToEither(CompletionStage<? extends T> other, Function<? super T, U> fn);
+public <U> CompletionStage<U> applyToEitherAsync(CompletionStage<? extends T> other, Function<? super T, U> fn);
+public <U> CompletionStage<U> applyToEitherAsync(CompletionStage<? extends T> other, Function<? super T, U> fn, Executor executor);
+```
+
+## acceptEither 方法
+
+用于连接连接两个 future, 选择计算结果最快的一个 future 返回, 和 applyToEither 方法不同的是 acceptEither 方法没有返回值, 不能进行诸如对 CompletableFuture 的泛型类型进行转换的操作, 使用方法和 thenAccept 类似, 这里就不贴出测试代码了, 相关方法的定义如下:
+
+```java
+public CompletionStage<Void> acceptEither(CompletionStage<? extends T> other, Consumer<? super T> action);
+public CompletionStage<Void> acceptEitherAsync(CompletionStage<? extends T> other, Consumer<? super T> action);
+public CompletionStage<Void> acceptEitherAsync(CompletionStage<? extends T> other, Consumer<? super T> action, Executor executor);
+```
+
+## exceptionally 方法
+
+exceptionally 用于 future 捕捉在计算的时候出现的异常, 在调用 get 方法如果计算是出现异常时就会被调用, 使用示例如下:
+
+```java
+CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(() -> {
+    if (true) {
+        throw new RuntimeException();
+    }
+    return 100;
+}).whenComplete((result, error) -> log.info("[Main] result = {}, error = {}", result, error.getMessage())).exceptionally(e -> 500);
+```
+
+输出结果如下:
+
+```text
+[main] INFO com.thread.excutor.CompletableFutureMain - [Main] result = null, error = java.lang.RuntimeException
+```
+
+可以当出现异常导致计算结束时 whenComplete 也会被调用, 即使没有调用 get 方法, 但是 exceptionally 则不会调用, 加上 get 方法的调用, 示例代码如下:
+
+```java
+CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(() -> {
+    if (true) {
+        throw new RuntimeException();
+    }
+    return 100;
+}).whenComplete((result, error) -> log.info("[Main] result = {}, error = {}", result, error.getMessage())).exceptionally(e -> 500);
+
+try {
+    DateTime startTime = DateTime.now();
+    int finalResult = future1.get(10, TimeUnit.SECONDS);
+    DateTime endTime = DateTime.now();
+    log.info("[MAIN] finalResult = {}, time = {}ms", finalResult, endTime.getMillis() - startTime.getMillis());
+} catch (InterruptedException | TimeoutException | ExecutionException e) {
+    e.printStackTrace();
+}
+```
+
+输出结果如下:
+
+```text
+[main] INFO com.thread.excutor.CompletableFutureMain - [Main] result = null, error = java.lang.RuntimeException
+[main] INFO com.thread.excutor.CompletableFutureMain - [MAIN] finalResult = 500, time = 31ms
+```
+
+可以看到这个时候 whenComplete 和 exceptionally 方法都被调用了, 并且 exceptionally 方法返回的值时直接影响到了 whenComplete 获取的值, whenComplete 获取到的是 exceptionally  最终返回的值
+
+## completeExceptionally 方法
+
+completeExceptionally 方法也是 future 处理异常的一个方法, 和 exceptionally 方法不同的是, exceptionally 捕捉的是在计算时出现的异常, 然后在调用 get 方法时会调用 exceptionally 方法对异常处理, 而 completeExceptionally 是在任意地方可以调用, 并在调用 get 方法时抛出这个异常, 无论 future 是否计算完成都会抛出这个异常, completeExceptionally 异常处理和 exceptionally 处理可以同时使用, 他们对应的使用场景时不同的, 使用示例如下:
+
+```java
+CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(() -> {
+    try {
+        Thread.sleep(1000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    return 100;
+}).whenComplete((result, error) -> log.info("[Main] result = {}, error = {}", result, error.getMessage()));
+
+// 等待 futrue 计算完成后抛出异常
+try {
+    Thread.sleep(2000);
+} catch (InterruptedException e) {
+    e.printStackTrace();
+}
+future1.completeExceptionally(new UnsupportedOperationException());
+
+try {
+    DateTime startTime = DateTime.now();
+    // 虽然 future 已经计算完成, 任然抛出 UnsupportedOperationException 异常
+    int finalResult = future1.get(10, TimeUnit.SECONDS);
+    DateTime endTime = DateTime.now();
+    log.info("[MAIN] finalResult = {}, time = {}ms", finalResult, endTime.getMillis() - startTime.getMillis());
+} catch (InterruptedException | TimeoutException | ExecutionException e) {
+    e.printStackTrace();
+}
+```
+
+## handle 方法
+
+handle 方法和 whenComplete 的效果是一样的, 但是和 whenComplete 稍微有一点不同, handle 有一个返回值, 同时和 whenComplete 一样第二个参数时出现的异常, 可以在这里对异常进行一些操作, 例如抛出异常让 exceptionally 方法可以捕捉和处理, 或者出现异常返回一个默认的值, 使用方法和 whenComplete 类似这里就不贴出使用示例代码了, 相关的方法如下:
+
+```java
+public <U> CompletionStage<U> handle(BiFunction<? super T, Throwable, ? extends U> fn);
+public <U> CompletionStage<U> handleAsync(BiFunction<? super T, Throwable, ? extends U> fn);
+public <U> CompletionStage<U> handleAsync(BiFunction<? super T, Throwable, ? extends U> fn,Executor executor);
+```
+
 # 参考资料
 
 * Java 8 实战 (书籍)
+* JDK 8 CompletableFuture 类源码
