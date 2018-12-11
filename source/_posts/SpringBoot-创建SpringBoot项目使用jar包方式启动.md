@@ -150,6 +150,7 @@ nohup 意思是不挂断运行命令,当账户退出或终端关闭时,程序仍
 
 ## 带 JVM 参数的启动方式
 
-nohup java -Xms1024m -Xmx1024m -Xmn512m -jar app.jar >output 2>&1 &
+nohup java -Xms1024m -Xmx1024m -Xmn512m -jar app.jar --spring.config.location=./config/application.properties >/dev/null 2>&1 &
 
-关于 JVM 参数：`https://yq.aliyun.com/articles/269858`
+* 关于 JVM 参数：`https://yq.aliyun.com/articles/269858`
+* 关于外部配置文件: `https://www.cnblogs.com/xiaoqi/p/6955288.html`
