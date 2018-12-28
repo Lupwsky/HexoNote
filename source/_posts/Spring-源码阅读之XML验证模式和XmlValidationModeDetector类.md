@@ -1,7 +1,7 @@
 ---
 title: Spring-源码阅读之XML验证模式和XmlValidationModeDetector类
 date: 2018-11-19 22:18:59
-categories:  Spring
+categories: Spring
 ---
 
 # XML 的两种验证模式 DTD 和 XSD
