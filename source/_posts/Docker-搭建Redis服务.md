@@ -121,11 +121,10 @@ sudo docker run --name redis -p 6379:6379 -v /home/lupw/redis/redis.config:/etc/
 上一步已经挂载配置文件和挂载数据持久化的路径, 设置外网可访问时需要修改配置文件, 只需要修改宿主机 /etc/redis/redis.config 路径下的配置问价然后然后重新启动 redis 容器即可生效, 设置外网可访问的配置如下
 
 ```ini
-修改配置文件
-
-bind 127.0.0.1 注释掉改为 # bind 127.0.0.1
-protected-mode yes 改为 protected -mode no
-# requirepass foobared 去掉注释改为 requirepass yourpassword
+修改配置文件, 一共三个地方需要修改
+1. bind 127.0.0.1 注释掉改为 # bind 127.0.0.1
+2. protected-mode yes 改为 protected -mode no
+3. # requirepass foobared 去掉注释改为 requirepass yourpassword
 ```
 
 启动完成后就可以访问了, 注意外网访问的时候 IP 是用宿主机的 IP 而不是使用 Docker 分配给容器的 IP:

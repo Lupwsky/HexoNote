@@ -65,10 +65,10 @@ sudo firewall-cmd --reload
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
 
-# 设置工作目录后, 日志文件才能顺利的保存在 /usr/local/app/logs 目录下
+# 设置工作目录后
 WORKDIR /usr/local/app
 
-# 时区设置, 使镜像的时区和宿主机的时区一样, 如果不设置时区, 容器和宿主机会有 8 个小时的时间差
+# 时区设置
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
@@ -106,3 +106,41 @@ sudo docker run --name web -d -p 8080:8080 -v /home/lupw/Web/logs:/usr/local/app
 
 使用 `sudo docker ps` 就可以看见容器被创建并已经顺利的启动了
 
+# 补充
+
+刚了解到, 原来的项目 docker-maven-plugin 已经不建议使用, 新的插件名称为 dockerfile-maven-plugin, 参考资料 [Dockerfile Maven 插件使用](http://blog.geekidentity.com/java/maven/dockerfile-maven-cn/), [Dockerfile Maven 插件使用 (备注)](https://my.oschina.net/geekidentity/blog/1649037), 将上面的例子重新使用新版的插件在 macOS 环境下跑了一遍
+
+## pom.xml
+
+```xml
+<plugin>
+    <groupId>com.spotify</groupId>
+    <artifactId>dockerfile-maven-plugin</artifactId>
+    <version>1.4.0</version>
+    <configuration>
+        <repository>springboot/${project.artifactId}</repository>
+        <tag>${project.version}</tag>
+        <buildArgs>
+            <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+        </buildArgs>
+    </configuration>
+</plugin>
+```
+
+## Dockerfile
+
+```dockerfile
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+
+WORKDIR /usr/local/app
+
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+ARG JAR_FILE
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
+```
+
+其他的操作方法是一样的, 这里不详细记录了
