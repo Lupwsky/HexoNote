@@ -36,6 +36,17 @@ LoadingCache<String, String> cache = CacheBuilder.newBuilder()
 
 <!-- more -->
 
+或者不使用 LoadingCahce, 直接使用 Cache 对象, 使用 Callback 的方式, 使用如下:
+
+```java
+Cache<String, String> cache = CacheBuilder.newBuilder().maximumSize(1000).build();  
+String resultValue = cache.get("A", () -> {  
+    public String call(String key) {  
+        return key + "G";
+    }  
+});  
+```
+
 ## 获取缓存
 
 ```java

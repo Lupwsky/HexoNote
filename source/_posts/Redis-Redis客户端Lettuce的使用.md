@@ -1,7 +1,7 @@
 ---
-title: Java-Redis客户端Lettuce的使用
+title: Redis-Redis客户端Lettuce的使用
 date: 2019-01-26 23:03:57
-categories: Java
+categories: Redis
 ---
 
 # Redis 客户端 Lettuce 的使用
@@ -145,7 +145,88 @@ RedisFuture 的使用和 JDK 1.8 中的 CompleteableFuture 使用类似, 支持 
 熟悉 Redis 的应该知道 Redis 支持发布订阅功能, 使用 SUBSCRIBE 和 PUBLISH 指令就可以实现, Lettuce 也提供了发布订阅功能相关 API, 使用起来也很方便, Jedis 也有提供相关 API, 参考资料 [Jedis 实现 Publish/Subscribe 功能](https://blog.csdn.net/lihao21/article/details/48370687), [Redis 用作消息队列和发布订阅模式](https://zhuanlan.zhihu.com/p/52734627)
 
 ```java
+// 同步方式
+StatefulRedisPubSubConnection<String, String> connection = redisClient.connectPubSub();
+connection.addListener(new RedisPubSubListener<String, String>() {
 
+    /**
+        * 接收到消息时的回调方法
+        *
+        * @param s  channel
+        * @param s2 接收到的消息
+        */
+    @Override
+    public void message(String s, String s2) {
+        log.info("message, channel = {}, message = {}", s, s2);
+    }
+
+    /**
+        * 接收到消息时的回调方法
+        *
+        * @param s  Pattern
+        * @param k1 channel
+        * @param s2 接收到的消息
+        */
+    @Override
+    public void message(String s, String k1, String s2) {
+        log.info("message, pattern = {}, channel = {}, message = {}", s, k1, s2);
+    }
+
+    /**
+        * 订阅 channel 时的监听方法
+        *
+        * @param s channel
+        * @param l 当前 channel 的数量
+        */
+    @Override
+    public void subscribed(String s, long l) {
+        log.info("subscribed, channel = {}, currentChannelCount = {}", s, l);
+    }
+
+    /**
+        * 批量订阅 channel 时的监听方法, 根据这里订阅的 channel 数量被多次调用
+        *
+        * @param s channel
+        * @param l 当前 channel 的数量
+        */
+    @Override
+    public void psubscribed(String s, long l) {
+        log.info("psubscribed, channel = {}, currentChannelCount = {}", s, l);
+    }
+
+    /**
+        * 取消订阅 channel 时的监听方法
+        *
+        * @param s channel
+        * @param l 当前 channel 的数量
+        */
+    @Override
+    public void unsubscribed(String s, long l) {
+        log.info("unsubscribed, channel = {}, currentChannelCount = {}", s, l);
+    }
+
+    /**
+        * 批量取消订阅 channel 时的监听方法, 根据这里取消订阅的 channel 数量被多次调用
+        *
+        * @param s channel
+        * @param l 当前 channel 的数量
+        */
+    @Override
+    public void punsubscribed(String s, long l) {
+        log.info("punsubscribed, channel = {}, currentChannelCount = {}", s, l);
+    }
+});
+
+RedisPubSubCommands<String, String> sync = connection.sync();
+
+// 订阅单个 channel, RedisPubSubListener 方法的 subscribed 会被调用
+sync.subscribe("username");
+
+// 订阅多个 channel, RedisPubSubListener 方法的 psubscribed 会根据这里订阅的 channel 数量被多次调用
+sync.psubscribe("username1", "username2");
+
+RedisCommands<String, String> commands = redisClient.connect().sync();
+commands.publish("username", "lpw");
 ```
 
 # 参考资料

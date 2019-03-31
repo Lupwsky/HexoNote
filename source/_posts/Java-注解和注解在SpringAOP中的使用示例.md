@@ -108,6 +108,112 @@ public @interface AopAnnotation {
 }
 ```
 
+# 代码中提起注解信息
+
+当开发者使用了注解后, 这些注解不会自己生效, 必须由开发者提供相应的代码提取并处理 Annotation 信息, 这些提取和处理注解的代码统称为 APT (Annotation Processing Toll), 获取 Annotation 信息主要是 java.lang,annotation.Annotation 接口和 java.lang.reflect.AnnotatedElement 两个接口, Class<T> 类实现 AnnotatedElement 接口, 通过反射获取到 Class 类的实例后就可以通过相关方法获取注解信息了, 源码如下:
+
+Annotation接口, 其中最主要的方法是annotationType方法, 用于返回该注解的java.lang.Calss, Annotation 是所有注解的父类
+
+```java
+public interface Annotation {
+    boolean equals(Object obj);
+    int hashCode();
+    String toString();
+    Class<? extends Annotation> annotationType();
+}
+```
+
+AnnotatedElemetnt 接口, 反射中的 Method 实现了这个借口, 在通过反射获取到 Method 后就可以调用这里的方法来获取注解信息了
+
+```java
+public interface AnnotatedElement {
+    // 判断程序元素上是否有指定的类型的注解
+    default boolean isAnnotationPresent(Class<? extends Annotation> annotationClass) {
+        return getAnnotation(annotationClass) != null;
+    }
+
+    // 获取程序元素上指定类型的注解, 如果不存在返回null
+    <T extends Annotation> T getAnnotation(Class<T> annotationClass);
+
+    // 获取程序元素上所有的注解, 如果不存在返回null
+    Annotation[] getAnnotations();
+
+    // 获取指定类型的注解
+    default <T extends Annotation> T[] getAnnotationsByType(Class<T> annotationClass) {
+         T[] result = getDeclaredAnnotationsByType(annotationClass);
+         if (result.length == 0 && 
+             this instanceof Class && 
+             AnnotationType.getInstance(annotationClass).isInherited()) { 
+             Class<?> superClass = ((Class<?>) this).getSuperclass();
+             if (superClass != null) {
+                 result = superClass.getAnnotationsByType(annotationClass);
+             }
+         }
+         return result;
+    }
+
+    default <T extends Annotation> T getDeclaredAnnotation(Class<T> annotationClass) {
+         Objects.requireNonNull(annotationClass);
+         for (Annotation annotation : getDeclaredAnnotations()) {
+             if (annotationClass.equals(annotation.annotationType())) {
+                 return annotationClass.cast(annotation);
+             }
+         }
+         return null;
+    }
+
+    default <T extends Annotation> T[] getDeclaredAnnotationsByType(Class<T> annotationClass) {
+        Objects.requireNonNull(annotationClass);
+        return AnnotationSupport.getDirectlyAndIndirectlyPresent(Arrays.stream(getDeclaredAnnotations()).collect(Collectors.toMap(Annotation::annotationType, Function.identity(), ((first,second) -> first), LinkedHashMap::new)),
+        annotationClass);
+    }
+
+    Annotation[] getDeclaredAnnotations();
+}
+```
+
+实例, 通过反射判断一个类中的方法是否使用了注解, 如果有使用注解, 打印出注解的元数据:
+
+```java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Test {
+    String name();
+    int age() default 18;
+}
+```
+
+```java
+public class AnnotationTest {
+    @Test(name = "Lupw")
+    public void testFunction1() {
+    }
+
+    public void testFunction2() {
+    }
+}
+```
+
+```java
+public static void main(String[] args) {
+    Class annotationTestClass;
+    try {
+        annotationTestClass = Class.forName("com.lupw.AnnotationTest");
+        for (Method m : annotationTestClass.getMethods()){
+            if (m.isAnnotationPresent(Test.class)) {
+                System.out.println("被@Test注解修饰的方法 : " + m.getName());
+                System.out.println("@Test元数据name的值 : " + m.getAnnotation(Test.class).name());
+                System.out.println("@Test元数据age的值 : " + m.getAnnotation(Test.class).age());
+            } else {
+                System.out.println("未被@Test注解修饰的方法 : " + m.getName());
+            }
+        }
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+}
+```
+
 # 在Spring AOP 中使用示例
 
 引入依赖:
@@ -232,3 +338,7 @@ public class AopTestController {
     }
 }
 ```
+
+# 参考资料
+
+* [秒懂, Java 注解 (Annotation) 你可以这样学](https://blog.csdn.net/briblue/article/details/73824058)
