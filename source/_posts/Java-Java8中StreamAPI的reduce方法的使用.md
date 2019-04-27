@@ -1,7 +1,7 @@
 ---
 title: Java-Java8中StreamAPI的reduce方法的使用
 date: 2018-10-17 23:38:14
-categories:  Java
+categories: Java
 ---
 
 reduce 可以根据计算模型从 stream 中得到一个值, stream 中的 count 方法, max 方法, min 方法本质上都是 reduce 方法实现的, 由于这些方法常用, 因此在封装后放入了标准库中, reduce 一共有三个重载方法, 如下:
