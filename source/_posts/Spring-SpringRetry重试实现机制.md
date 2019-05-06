@@ -55,7 +55,7 @@ spring-retry 是从 spring-batch 中分离出来的一个项目, 主要实现了
 // 创建 RetryTemplate 模板用于组装基础处理逻辑, 兜底操作 (最终失败的处理逻辑) 和重试策略并执行重试任务, RetryTemplate 实现了 RetryOperations 接口
 RetryTemplate retryTemplate = new RetryTemplate();
 
-// 创建一个简单的重试策略并添加到 retryTemplate 中, 
+// 创建一个简单的重试策略并添加到 retryTemplate 中,
 // TimeoutRetryPolicy 重试策略是在指定的时间后再次重试一次, 查看源码可以知道默认为 1 秒后, 里面还有有个 isAlive 方法在执行的时候可以判断是否已经超时过期
 TimeoutRetryPolicy timeoutRetryPolicy = new TimeoutRetryPolicy();
 timeoutRetryPolicy.setTimeout(2000);
@@ -95,7 +95,7 @@ log.info("2s 后 result = {}", result);
 
 ```java
 public interface RetryCallback<T, E extends Throwable> {
-	T doWithRetry(RetryContext context) throws E;
+   T doWithRetry(RetryContext context) throws E;
 }
 ```
 
@@ -155,13 +155,13 @@ recover retry count = 10
 
 ```java
 public interface RecoveryCallback<T> {
-	T recover(RetryContext context) throws Exception;
+    T recover(RetryContext context) throws Exception;
 }
 ```
 
 recover 方法也带有重试上下文参数, 另外如果执行出现异常, 可以抛出异常让调用者处理, 或者自己处理掉异常
 
-## 注解方式实现
+# 注解方式实现
 
 spring-retry 支持使用注解方法实现, 首先需要在启动类上添加 `@EnableRetry` 注解, 在需要重试的方法上添加 `@Retryable` 注解, @Retryable(RetryException.class) 注解表示调用这个方法, 如果出现 RetryException 异常就重试, `默认最多重试 3 次, 重试间隔为 1 秒` 示例如下:
 

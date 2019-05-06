@@ -1,7 +1,7 @@
 ---
-title: IDEA-Maven创建JavaWeb项目
+title: Java-Maven创建JavaWeb项目
 date: 2018-03-28 14:57:05
-categories:  IDEA
+categories: Java
 ---
 
 # 创建项目

@@ -1,7 +1,7 @@
 ---
-title: Dubbo-Dubbo入门学习笔记
+title: Java-Dubbo入门学习笔记
 date: 2018-06-05 10:35:04
-categories: Dubbo
+categories: Java
 ---
 
 在了解 Dubbo 之前，先了解下 RPC 的概念，RPC (Remote Procedure Call) 即远程过程调用，是一种计算机协议，该协议允许运行于一台计算机的程序调用另一台计算机的子程序。几个例子说明，两台服务器 A、B，分别部署不同的应用 a、b，当 A 服务器想要调用 B 服务器上应用 b 提供的函数或方法的时候，由于不在一个内存空间，不能直接调用，但是通过 RPC 可以完成这种远程服务调用。
@@ -41,8 +41,6 @@ Dubbo 是一款分布式服务框架，是一个高性能和透明化的 RPC 远
 * Multicast 注册中心
 * Redis 注册中心
 * Simple 注册中心
-
-# Dubbo 的优点
 
 # 参考资料
 

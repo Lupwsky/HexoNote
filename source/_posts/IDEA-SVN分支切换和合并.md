@@ -1,7 +1,7 @@
 ---
-title: IDEA-SVN分支切换和合并
+title: Java-SVN分支切换和合并
 date: 2018-05-15 11:02:14
-categories: IDEA
+categories: Java
 ---
 
 # 创建分支

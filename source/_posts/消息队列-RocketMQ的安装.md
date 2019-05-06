@@ -1,7 +1,7 @@
 ---
-title: 消息队列-RocketMQ的安装
+title: Java-RocketMQ的安装
 date: 2018-05-10 11:13:06
-categories: 消息队列
+categories: Java
 ---
 
 消息队列(Message Queue, 简称 MQ), 消息中间件作为实现分布式消息系统可拓展、可伸缩性的关键组件, 具有高吞吐量、高可用等等优点。RocketMQ 是阿里一款开源的分布式消息系统, 基于高可用分布式集群技术, 提供低延时的、高可靠的消息发布与订阅服务。这篇笔记简单记录了 RocketMQ 的在服务器上的安装和启动方法。

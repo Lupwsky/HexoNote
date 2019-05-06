@@ -1,7 +1,7 @@
 ---
-title: IDEA-Git管理项目的相关操作
+title: Java-Git管理项目的相关操作
 date: 2018-06-16 03:22:30
-categories: IDEA
+categories: Java
 ---
 
 # 创建分支
