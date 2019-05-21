@@ -6,13 +6,7 @@ categories: Java
 
 # JVM 运行时分区
 
-* 程序计数器
-* 方法区
-* 堆区
-* 栈
-* 本地方法栈
-
-<!-- more -->
+程序计数器, 方法区, 堆区, 栈, 本地方法栈
 
 # 程序计数器
 
@@ -21,15 +15,14 @@ categories: Java
 # 堆区 
 
 所有线程共享, 所有对象和数组都在堆区分配, 初始堆区为物理机内存的 1/64, 最大堆区为物理机内存的 1/4, 可通过 -Xmx, -Xms 调整, 此区域会出现 OutMemoryException 异常
-
 * 堆区又分为新生代, 老年代和持久代
 * 新生代可以使用 -Xmn 来调整, 或者使用 -XX:NewSize, 最大值使用 -XX:MaxNewSize 来调整
 * 持久代可以通过 -XX:PermSize 设置, 最大值可以通过 -XX:MaxPermSize 设置
 * 老年代没有可设置的参数, 可以通过设置新生代和持久代的大小来设置
-
 * 新生代和老年代还可以通过 -XX:NewRatio 来设置比例, 例如 -XX:NewRatio = 4, 表示新生代和老年代的比例为 1:4
-
 * 新生代由 Eden Space, Survivor 0 Space, Survivor 1 Space 三个区域组成, 这三个区域默认占比为 8:1:1, 可以通过 -XX:SurvivorRatio 来设置比例, 例如 -XX:SurvivorRatio = 8, 表示两个 Survivor Space : Eden Space = 2 : 8
+
+<!-- more -->
 
 # 方法区
 
