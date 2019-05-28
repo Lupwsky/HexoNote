@@ -217,9 +217,9 @@ com/example/javaagent/JavaAgentController transform begin...
 com/example/javaagent/JavaAgentController transform end...
 ```
 
-# 应用场景
+# Java Agent 应用范围
 
-Java Agent 技术应用范围有很多, 常用于系统的监控等诊断工具, 如 Greys , 阿里开源的 TProfiler 和 Arthas (基于 Greys 二次开发) 等诊断工具, 也应用于热部署领域, 如 JRebel, Spring Loader 等
+Java Agent 技术应用范围有很多, 常用于系统的监控等诊断工具, 如 Greys (以 Attach 方式载入), 阿里开源的 TProfiler (以 VM 参数的形式载入) 和 Arthas (基于 Greys 二次开发, 以 Attach 方式载入) 和 MyPerf4j (以 VM 参数的形式载入) 等诊断工具, 也应用于热部署领域, 如 JRebel, Spring Loader 等
 
 # 参考资料
 
