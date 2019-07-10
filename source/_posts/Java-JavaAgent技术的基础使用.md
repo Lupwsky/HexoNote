@@ -225,6 +225,7 @@ Java Agent 技术应用范围有很多, 常用于系统的监控等诊断工具,
 
 * [Java Instrumentation](https://blog.csdn.net/productshop/article/details/50623626)
 * [谈谈 Java Intrumentation 和相关应用](http://fanyilun.me/2017/07/18/%E8%B0%88%E8%B0%88Java%20Intrumentation%E5%92%8C%E7%9B%B8%E5%85%B3%E5%BA%94%E7%94%A8/)
+* [基于 Java Agent 与 Javassist 实现零侵入 AOP](https://ouyblog.com/2019/03/%E5%9F%BA%E4%BA%8EJava-Agent%E4%B8%8EJavassist%E5%AE%9E%E7%8E%B0%E9%9B%B6%E4%BE%B5%E5%85%A5AOP)
 * [Javassist 使用指南(一)](http://erhu.party/2016/11/17/javassist-turorial-1/)
 * [Javassist 使用指南(二)](http://erhu.party/2016/11/23/javassist-turorial-2/)
 * [Javassist 使用指南(三)](http://erhu.party/2016/11/23/javassist-tutorial-3/)
