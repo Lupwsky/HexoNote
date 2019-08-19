@@ -45,7 +45,7 @@ if (rateLimiter.tryAcquire(1)) {
 }
 ```
 
-上面的 RateLimiter 方法生成的 RateLimiter 实例是 SmoothBursty 类型的限流器, Guava有两种限流器, 一种为稳定模式 (SmoothBursty), 令牌生成速度恒定), 一种为渐进模式(SmoothWarmingUp), 令牌生成速度缓慢提升直到维持在一个稳定值, 如果需要获取渐进模式的限流器, 可以调用 RateLimiter 的另一个 create 方法, 如下所示:
+上面的 RateLimiter 方法生成的 RateLimiter 实例是 SmoothBursty 类型的限流器, Guava 有两种限流器, 一种为稳定模式 (SmoothBursty), 令牌生成速度恒定), 一种为渐进模式 (SmoothWarmingUp), 令牌生成速度缓慢提升直到维持在一个稳定值, 如果需要获取渐进模式的限流器, 可以调用 RateLimiter 的另一个 create 方法, 如下所示:
 
 ```java
 @Configuration

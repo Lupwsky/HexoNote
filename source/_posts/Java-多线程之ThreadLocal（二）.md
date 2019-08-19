@@ -21,6 +21,8 @@ ThreadLocal 对外提供的方法只有四个：
 
 # ThreadLocal 实现原理
 
+ThreadLocal 实现的原理是每一个线程都维护了一个 ThreadLocalMap 类型 (继承于 HashMap) 的 threadLocals 变量, 这个 map 的 key 是当前 ThreadLocal 变量本身的引用, value ThreadLoca 中设置的值
+
 ## set 方法
 
 先来看看 ThradLocal 的 set 方法，如下：
